@@ -12,6 +12,9 @@ namespace SpaDay.Controllers
     {
         public bool CheckSkinType(string skinType, string facialType)
         {
+            ViewBag.skinType = skinType;
+           
+            ViewBag.facials = facialType;
 
             if (facialType != "Microdermabrasion")
             {
@@ -27,14 +30,16 @@ namespace SpaDay.Controllers
                 {
                     return false;
                 }
+                
             }
-
+            
             return true;
 
         }
 
         public IActionResult Index()
         {
+            
             return View();
         }
 
@@ -42,6 +47,8 @@ namespace SpaDay.Controllers
         [Route("/spa")]
         public IActionResult Menu(string name, string skintype, string manipedi)
         {
+            ViewBag.maniPedi = manipedi;
+            ViewBag.NameProp = name;
             List<string> facials = new List<string>()
             {
                 "Microdermabrasion", "Hydrofacial", "Rejuvenating", "Enzyme Peel"
@@ -52,9 +59,11 @@ namespace SpaDay.Controllers
             {
                 if (CheckSkinType(skintype, facials[i]))
                 {
+                    
                     appropriateFacials.Add(facials[i]);
                 }
             }
+            ViewBag.facialType = appropriateFacials;
             return View();
         }
 
